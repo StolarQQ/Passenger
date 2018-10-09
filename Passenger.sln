@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Passenger.Core", "Passenger
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Passenger.Infrastructure", "Passenger.Infrastructure\Passenger.Infrastructure.csproj", "{B8ADD669-E2D2-4A6A-836D-6163F99AF465}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Passenger.Tests", "Passenger.Tests\Passenger.Tests.csproj", "{7A9051B3-5EA8-4CB7-ACC2-376F69B33E49}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{66F8B101-926C-4013-85C8-456126C93416}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +31,16 @@ Global
 		{B8ADD669-E2D2-4A6A-836D-6163F99AF465}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8ADD669-E2D2-4A6A-836D-6163F99AF465}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8ADD669-E2D2-4A6A-836D-6163F99AF465}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9051B3-5EA8-4CB7-ACC2-376F69B33E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9051B3-5EA8-4CB7-ACC2-376F69B33E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9051B3-5EA8-4CB7-ACC2-376F69B33E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9051B3-5EA8-4CB7-ACC2-376F69B33E49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7A9051B3-5EA8-4CB7-ACC2-376F69B33E49} = {66F8B101-926C-4013-85C8-456126C93416}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D55936AD-9F06-481E-BF28-3873C309425D}
