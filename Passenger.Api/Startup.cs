@@ -30,7 +30,7 @@ namespace Passenger.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, InMemoryUserRepository>();
+            services.AddScoped<IUserRepository, IMemoryUserRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

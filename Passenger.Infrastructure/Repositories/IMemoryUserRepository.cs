@@ -6,7 +6,7 @@ using Passenger.Core.Repositories;
 
 namespace Passenger.Infrastructure
 {
-    public class InMemoryUserRepository : IUserRepository
+    public class IMemoryUserRepository : IUserRepository
     {
         private static ISet<User> _user = new HashSet<User>
         {
@@ -14,8 +14,6 @@ namespace Passenger.Infrastructure
             new User("user2@gmail.com", "user2", "secret", "salt"),
             new User("user3@gmail.com", "user3", "secret", "salt"),
             new User("user4@gmail.com", "user4", "secret", "salt")
-
-
         };
 
         public User Get(Guid id)

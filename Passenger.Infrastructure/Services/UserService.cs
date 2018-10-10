@@ -43,9 +43,5 @@ namespace Passenger.Infrastructure.Services
             // Use Add Method -
             _userRepository.Add(user);
         }
-        
-
-       
     }
-
 }

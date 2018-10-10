@@ -6,11 +6,10 @@ namespace Passenger.Infrastructure.Services
     {
         public void Test()
         {
-            var us = new UserService(new InMemoryUserRepository());
-            var otherdatabase = new UserService(new InMemoryUserRepository());
+            var us = new UserService(new IMemoryUserRepository());
+            var otherdatabase = new UserService(new IMemoryUserRepository());
 
             us.Register("elo","stolar","123");
-
         }
     }
 }
