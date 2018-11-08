@@ -15,11 +15,14 @@ namespace Passenger.Core.Domain
         protected Driver()
         {
         }
-
+    
         public Driver(User user)
         {
             UserId = user.Id;
             Name = user.Username;
+        //    We can create static method that create vehicle objects
+        //    Vehicle = Vehicle.Create();
+        //
         }
 
 

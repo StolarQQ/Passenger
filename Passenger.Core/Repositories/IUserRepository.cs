@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Passenger.Core.Domain;
 
 namespace Passenger.Core.Repositories
 {
     public interface IUserRepository
-    {
-        User Get(Guid id);
-        User Get(string email);
-        IEnumerable<User> GetAll();
-        // CQS  Commands - Change the state of a system but do not return a value // 
-        void Add(User user);
-        void Update(User user);
-        void Remove(Guid id);
+    {   // CQS  Commands - Change the state of a system but do not return a value //
+
+        Task<User> GetAsync(Guid id);
+        Task<User> GetAsync(string email);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task AddAsync(User user);
+        Task UpdateAsync(User user);
+        Task RemoveAsync(Guid id);
+       
     }
 }

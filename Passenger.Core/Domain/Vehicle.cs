@@ -10,6 +10,11 @@ namespace Passenger.Core.Domain
         public int Seats { get; protected set; }
         public string Brand { get; protected set; }
 
+        protected Vehicle()
+        {
+            
+        }
+
         protected Vehicle(string brand, string name, int seats)
         {
             SetBrand(brand);
@@ -61,5 +66,9 @@ namespace Passenger.Core.Domain
             }
             Seats = seats;
         }
+
+        //public static Vehicle Create(string brand, string name, int seats)
+        //    => new Vehicle(brand, name, seats);
+        
     }
 }

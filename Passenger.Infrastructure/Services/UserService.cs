@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using AutoMapper;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.DTO;
@@ -8,29 +12,27 @@ namespace Passenger.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
         // Source of data, it could be database / list etc. 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
-        
-        public UserDto Get(string email)
+        // TODO Learn more about Auto Mapper lib
+        public async Task<UserDto> GetAsync(string email)
         {
-            var user = _userRepository.Get(email);
-
-            return new UserDto
-            {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                FullName = user.FullName
-            };
+            var user = await _userRepository.GetAsync(email);
+            // Add more null checker
+            // Error handling API CORE 2.0
+;
+            return _mapper.Map<User, UserDto>(user);
         }
 
-        public void Register(string email,string username, string password)
+        public async Task RegisterAsync(string email,string username, string password)
         {
-            var user = _userRepository.Get(email);
+            var user = await _userRepository.GetAsync(email);
             if (user != null)
             {
                 throw new Exception($"User with email '{email}' already exists");
@@ -41,7 +43,7 @@ namespace Passenger.Infrastructure.Services
             user = new User(email, username, password, salt);
 
             // Use Add Method -
-            _userRepository.Add(user);
+            await _userRepository.AddAsync(user);
         }
     }
 }
