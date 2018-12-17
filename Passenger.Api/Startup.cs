@@ -37,9 +37,11 @@ namespace Passenger.Api
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
+
             //builder.RegisterType<InMemoryDriverRepository>().As<IDriverRepository>();
-            
+            //builder.RegisterType<InMemoryUserRepository>().As<IUserRepository>();
             builder.RegisterModule<CommandModules>();
+
 
             ApplicationContainer = builder.Build();
 
@@ -61,6 +63,7 @@ namespace Passenger.Api
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            
 
             // As of Autofac.Extensions.DependencyInjection 4.3.0 the AutofacDependencyResolver
             // implements IDisposable and will be disposed - along with the application container -

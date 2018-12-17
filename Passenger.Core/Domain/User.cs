@@ -16,6 +16,8 @@ namespace Passenger.Core.Domain
         public string Salt { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
+       
+        
 
         protected User()
         {

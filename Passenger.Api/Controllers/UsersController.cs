@@ -12,16 +12,17 @@ namespace Passenger.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : ApiControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ICommandDispatcher _commandDispatcher;
+        //private readonly ICommandDispatcher _commandDispatcher;
 
 
-        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher)
+        public UsersController(IUserService userService,
+            ICommandDispatcher commandDispatcher) : base (commandDispatcher)
         {
             _userService = userService;
-            _commandDispatcher = commandDispatcher;
+            //_commandDispatcher = commandDispatcher;
         }
 
         // GET // Before UserDTO result
@@ -37,22 +38,21 @@ namespace Passenger.Api.Controllers
             return new JsonResult(user);
         }
              
-
         // POST
-
         [HttpPost("")]
         public async Task<IActionResult> Post([FromBody] CreateUser command)
         {
             //await _userService.RegisterAsync(request.Email, request.Username, request.Password);
-            await _commandDispatcher.DispatchAsync(command);
+            await CommandDispatcher.DispatchAsync(command);
 
             return Created($"users/{command.Email}", new {command.Email}); // TODO Created how work
         }
+        
 
         [HttpGet("")]
-        public async Task<string> ZZZ()
+        public async Task<string> Test()
         {
-            return "elo";
+            return "test";
         }
         
     }
