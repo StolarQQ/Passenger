@@ -40,8 +40,10 @@ namespace Passenger.Infrastructure.Repositories
         }
 
         public async Task UpdateAsync(User user)
-        {
+        {  
+            // throw new NotImplementedException();
             await Task.CompletedTask;
         }
+
     }
 }
