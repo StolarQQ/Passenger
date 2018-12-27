@@ -9,7 +9,6 @@ namespace Passenger.Infrastructure.IoC
 {
     public class ContainerModule : Autofac.Module
     {
-
         private readonly IConfiguration _configuration;
 
         public ContainerModule(IConfiguration configuration)

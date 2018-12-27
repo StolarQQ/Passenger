@@ -26,7 +26,6 @@ namespace Passenger.Api
             Configuration = configuration;
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -69,9 +68,8 @@ namespace Passenger.Api
             // application container, register for the "ApplicationStopped" event.
             // You can only do this if you have a direct reference to the container,
             // so it won't work with the above ConfigureContainer mechanism.
-            
 
-            // appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
+            appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }
 }

@@ -16,9 +16,10 @@ namespace Passenger.Infrastructure.Handlers.Drivers
 
         public async Task HandleAsync(CreateDriver command)
         {
-           // TODO ADD CreateDriverAsync command, Add GetDriversAsync
-           // TODO Implement Test for new driverservice.
-        
+            // TODO ADD CreateDriverAsync command, Add GetDriversAsync
+            // TODO Implement Test for new driverservice.
+
+            await Task.CompletedTask;
         }
     }
 }
