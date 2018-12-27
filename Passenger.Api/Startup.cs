@@ -1,18 +1,23 @@
 ﻿using System;
+using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
+using Passenger.Infrastructure.Extenstions;
 using Passenger.Infrastructure.IoC;
 using Passenger.Infrastructure.IoC.Modules;
 using Passenger.Infrastructure.Mapper;
 using Passenger.Infrastructure.Repositories;
 using Passenger.Infrastructure.Services;
+using Passenger.Infrastructure.Settings;
 
 namespace Passenger.Api
 {
@@ -31,6 +36,27 @@ namespace Passenger.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            var jwtSettings = Configuration.GetSettings<JwtSettings>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                   .AddJwtBearer(cfg =>
+                   {
+                       cfg.TokenValidationParameters = new TokenValidationParameters()
+                       {
+                           // Creator of Token
+                           ValidIssuer = jwtSettings.Issuer,
+                           // 
+                           ValidateAudience = false,
+                           // How our Key its make
+                           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+                       };
+                   });
+
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
 
@@ -41,7 +67,6 @@ namespace Passenger.Api
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,9 +81,12 @@ namespace Passenger.Api
                 app.UseHsts();
             }
 
+            
+            app.UseAuthentication();
+
             app.UseHttpsRedirection();
             app.UseMvc();
-            
+
 
             // As of Autofac.Extensions.DependencyInjection 4.3.0 the AutofacDependencyResolver
             // implements IDisposable and will be disposed - along with the application container -

@@ -16,12 +16,13 @@ namespace Passenger.Tests.Services
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var mapperMock = new Mock<IMapper>();
+            var encrypterMock = new Mock<IEncrypter>();
 
             // Declarative 
             var driverRepositoryMock = Mock.Of<IDriverRepository>();
 
 
-            var userService = new UserService(userRepositoryMock.Object, mapperMock.Object);
+            var userService = new UserService(userRepositoryMock.Object, encrypterMock.Object, mapperMock.Object);
             await userService.RegisterAsync("user@gmail.com", "username", "secret");
 
             userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
