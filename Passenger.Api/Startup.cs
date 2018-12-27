@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
+using Passenger.Infrastructure.IoC;
 using Passenger.Infrastructure.IoC.Modules;
 using Passenger.Infrastructure.Mapper;
 using Passenger.Infrastructure.Repositories;
@@ -29,10 +30,6 @@ namespace Passenger.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddSingleton(AutoMapperConfig.Initialize());
-           
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var builder = new ContainerBuilder();
@@ -40,8 +37,7 @@ namespace Passenger.Api
 
             //builder.RegisterType<InMemoryDriverRepository>().As<IDriverRepository>();
             //builder.RegisterType<InMemoryUserRepository>().As<IUserRepository>();
-            builder.RegisterModule<CommandModules>();
-
+            builder.RegisterModule(new ContainerModule(Configuration));
 
             ApplicationContainer = builder.Build();
 

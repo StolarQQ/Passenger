@@ -5,7 +5,7 @@ using Passenger.Core.Domain;
 
 namespace Passenger.Core.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {   // CQS  Commands - Change the state of a system but do not return a value //
 
         Task<User> GetAsync(Guid id);

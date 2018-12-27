@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
 using Passenger.Infrastructure.DTO;
 using Passenger.Infrastructure.Services;
+using Passenger.Infrastructure.Settings;
 
 namespace Passenger.Api.Controllers
 {
@@ -17,9 +19,8 @@ namespace Passenger.Api.Controllers
         private readonly IUserService _userService;
         //private readonly ICommandDispatcher _commandDispatcher;
 
-
         public UsersController(IUserService userService,
-            ICommandDispatcher commandDispatcher) : base (commandDispatcher)
+            ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
             //_commandDispatcher = commandDispatcher;
@@ -37,7 +38,7 @@ namespace Passenger.Api.Controllers
 
             return new JsonResult(user);
         }
-             
+
         // POST
         [HttpPost("")]
         public async Task<IActionResult> Post([FromBody] CreateUser command)
@@ -45,15 +46,14 @@ namespace Passenger.Api.Controllers
             //await _userService.RegisterAsync(request.Email, request.Username, request.Password);
             await CommandDispatcher.DispatchAsync(command);
 
-            return Created($"users/{command.Email}", new {command.Email}); // TODO Created how work
+            return Created($"users/{command.Email}", new { command.Email }); // TODO Created how work
         }
-        
+
 
         [HttpGet("")]
         public async Task<string> Test()
         {
-            return "test";
+            return new Random().ToString();
         }
-        
     }
 }

@@ -1,24 +1,21 @@
 ﻿using System.Reflection;
 using Autofac;
-using Autofac.Core;
+using Passenger.Core.Repositories;
 using Passenger.Infrastructure.Commands;
 
 namespace Passenger.Infrastructure.IoC.Modules
 {
-    public class CommandModules : Autofac.Module
+    public class RepositoryModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = typeof(CommandModules)
+            var assembly = typeof(RepositoryModule)
                 .GetTypeInfo()
                 .Assembly;
 
             builder.RegisterAssemblyTypes(assembly)
-                   .AsClosedTypesOf(typeof(ICommandHandler<>))
-                   .InstancePerLifetimeScope();
-
-            builder.RegisterType<CommandDispatcher>()
-                .As<ICommandDispatcher>()
+                .Where(x => x.IsAssignableTo<IRepository>())
+                .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }
     }
