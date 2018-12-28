@@ -28,7 +28,7 @@ namespace Passenger.Api.Controllers
         }
 
         // GET // Before UserDTO result
-        [Authorize]
+        [Authorize(Policy = "admin")]
         [HttpGet("{email}")]
         public async Task<IActionResult> Get(string email)
         {

@@ -36,6 +36,14 @@ namespace Passenger.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
+
+
+            // TODO Test AppSettings Core 2.2
+            //var appsttings = Configuration.GetSection("Jwt");
+            //services.Configure<JwtSettings>(appsttings);
+
+            // JWT Implementation
             var jwtSettings = Configuration.GetSettings<JwtSettings>();
 
             services.AddAuthentication(options =>

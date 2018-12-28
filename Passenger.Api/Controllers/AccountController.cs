@@ -24,9 +24,7 @@ namespace Passenger.Api.Controllers
         [Route("token")]
         public IActionResult Get()
         {
-            //await _userService.RegisterAsync(request.Email, request.Username, request.Password);
-
-            var token =_jwtHandler.CreateToken("user@email.com", "user");
+            var token =_jwtHandler.CreateToken("user@email.com", "admin");
 
             return Json(token);
         }

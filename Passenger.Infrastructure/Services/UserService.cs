@@ -41,6 +41,7 @@ namespace Passenger.Infrastructure.Services
             }
 
             var salt = _encrypter.GetSalt();
+
             var hash = _encrypter.GetHash(password, salt);
             user = new User(email, username, hash, salt);
             await _userRepository.AddAsync(user);

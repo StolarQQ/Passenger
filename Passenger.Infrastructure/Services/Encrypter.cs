@@ -11,7 +11,7 @@ namespace Passenger.Infrastructure.Services
 
         public string GetSalt()
         {
-            var random = new Random();
+            //var random = new Random();
             var saltBytes = new byte[SaltSize];
             var rng = RandomNumberGenerator.Create();
             rng.GetBytes(saltBytes);
