@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 
 namespace Passenger.Core.Domain
-{// TODO: Check if methods could be private one, Do more Regex constrains.
+{// TODO: Check if methods could be private one,... more Regex constrains.
     public class User
     {  
         // Check this regex
@@ -17,8 +17,6 @@ namespace Passenger.Core.Domain
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
        
-        
-
         protected User()
         {
             
@@ -117,7 +115,6 @@ namespace Passenger.Core.Domain
 
             Salt = salt;
             UpdatedAt = DateTime.UtcNow;
-
         }
     }
 }

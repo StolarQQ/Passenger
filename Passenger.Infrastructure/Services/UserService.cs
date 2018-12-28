@@ -13,7 +13,6 @@ namespace Passenger.Infrastructure.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IEncrypter _encrypter;
-
         private readonly IMapper _mapper;
 
         // Source of data, it could be database / list etc. 

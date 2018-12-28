@@ -24,8 +24,5 @@ namespace Passenger.Core.Domain
         //    Vehicle = Vehicle.Create();
         //
         }
-
-
-
     }
 }

@@ -53,9 +53,9 @@ namespace Passenger.Api.Controllers
 
 
         [HttpGet("")]
-        public async Task<string> Test()
+        public async Task Test()
         {
-            return "TEST!@";
+            await Task.CompletedTask;
         }
     }
 }

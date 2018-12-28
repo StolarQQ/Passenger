@@ -42,7 +42,5 @@ namespace Passenger.Core.Domain
             }
             _passengerNodes.Remove(passengerNode);
         }
-
-        
     }
 }
