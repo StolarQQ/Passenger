@@ -43,7 +43,7 @@ namespace Passenger.Api
             //var appsttings = Configuration.GetSection("Jwt");
             //services.Configure<JwtSettings>(appsttings);
 
-            // JWT Implementation
+            // Jwt Implementation
             var jwtSettings = Configuration.GetSettings<JwtSettings>();
 
             services.AddAuthentication(options =>
@@ -65,13 +65,11 @@ namespace Passenger.Api
                    });
 
 
+
+            // Autofac container configuration
             var builder = new ContainerBuilder();
             builder.Populate(services);
-
-            //builder.RegisterType<InMemoryDriverRepository>().As<IDriverRepository>();
-            //builder.RegisterType<InMemoryUserRepository>().As<IUserRepository>();
             builder.RegisterModule(new ContainerModule(Configuration));
-
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);
@@ -91,7 +89,6 @@ namespace Passenger.Api
 
             
             app.UseAuthentication();
-
             app.UseHttpsRedirection();
             app.UseMvc();
 
