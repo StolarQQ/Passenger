@@ -37,11 +37,11 @@ namespace Passenger.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
-
+            services.AddMemoryCache();
+            
 
             // TODO Test AppSettings Core 2.2
-            //var appsttings = Configuration.GetSection("Jwt");
-            //services.Configure<JwtSettings>(appsttings);
+          
 
             // Jwt Implementation
             var jwtSettings = Configuration.GetSettings<JwtSettings>();
@@ -57,18 +57,22 @@ namespace Passenger.Api
                        {
                            // Creator of Token
                            ValidIssuer = jwtSettings.Issuer,
+                           ValidateIssuer = true,
+                           ValidateLifetime = true,
+                           //ValidIssuer =  Configuration["Jwt:Issuer"],
                            // 
                            ValidateAudience = false,
                            // How our Key its make
                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+                           //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:key"]))
+
                        };
                    });
-
-
+            
 
             // Autofac container configuration
             var builder = new ContainerBuilder();
-            builder.Populate(services);
+            builder.Populate(services);            
             builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
 

@@ -20,14 +20,14 @@ namespace Passenger.Api.Controllers
             _jwtHandler = jwtHandler;
         }
         // TODO
-        [HttpGet]
-        [Route("token")]
-        public IActionResult Get()
-        {
-            var token =_jwtHandler.CreateToken("user@email.com", "admin");
+        //[HttpGet]
+        //[Route("token")]
+        //public IActionResult Get()
+        //{
+        //    var token =_jwtHandler.CreateToken("user@email.com", "admin");
 
-            return Json(token);
-        }
+        //    return Json(token);
+        //}
 
         // TODO
         [HttpPut("")]

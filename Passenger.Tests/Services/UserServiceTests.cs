@@ -23,7 +23,7 @@ namespace Passenger.Tests.Services
 
 
             var userService = new UserService(userRepositoryMock.Object, encrypterMock.Object, mapperMock.Object);
-            await userService.RegisterAsync("user@gmail.com", "username", "secret");
+            await userService.RegisterAsync("user@gmail.com", "username", "secret","user");
 
             userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
 

@@ -32,7 +32,7 @@ namespace Passenger.Infrastructure.Services
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public async Task RegisterAsync(string email,string username, string password)
+        public async Task RegisterAsync(string email,string username, string password, string role)
         {
             var user = await _userRepository.GetAsync(email);
             if (user != null)
@@ -42,7 +42,7 @@ namespace Passenger.Infrastructure.Services
 
             var salt = _encrypter.GetSalt();
             var hash = _encrypter.GetHash(password, salt);
-            user = new User(email, username, hash, salt);
+            user = new User(email, username, hash, salt, role);
             await _userRepository.AddAsync(user);
         }
 
