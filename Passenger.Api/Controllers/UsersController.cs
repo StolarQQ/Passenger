@@ -28,6 +28,7 @@ namespace Passenger.Api.Controllers
         }
 
         // GET // Before UserDTO result
+        //[Authorize(Policy = "admin")]
         [HttpGet("{email}")]
         public async Task<IActionResult> Get(string email)
         {
@@ -40,9 +41,21 @@ namespace Passenger.Api.Controllers
             return new JsonResult(user);
         }
 
+        [HttpGet("{all}")]
+        public async Task<IActionResult> GetAll()
+        {
+            var users = await _userService.GetAllAsync();
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return new JsonResult(users);
+        }
+
         // POST
         [HttpPost("")]
-        public async Task<IActionResult> Post([FromBody] CreateUser command)
+        public async Task<IActionResult> Post([FromBody]CreateUser command)
         {
             //await _userService.RegisterAsync(request.Email, request.Username, request.Password);
             await CommandDispatcher.DispatchAsync(command);

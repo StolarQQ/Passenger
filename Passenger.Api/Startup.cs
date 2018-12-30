@@ -37,6 +37,7 @@ namespace Passenger.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
+            // Cache
             services.AddMemoryCache();
             
 
@@ -91,7 +92,16 @@ namespace Passenger.Api
                 app.UseHsts();
             }
 
-            
+            var generalSettings = app.ApplicationServices.GetService<GeneralSettings>();
+
+            // Call dataInitializer 
+            if (generalSettings.SeedData)
+            {
+                var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+                dataInitializer.SeedAsync();
+            }
+
+
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();

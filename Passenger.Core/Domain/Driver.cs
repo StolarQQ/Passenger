@@ -18,7 +18,7 @@ namespace Passenger.Core.Domain
     
         public Driver(User user)
         {
-            UserId = user.Id;
+            UserId = user.UserId;
             Name = user.Username;
         //    We can create static method that create vehicle objects
         //    Vehicle = Vehicle.Create();

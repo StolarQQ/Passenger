@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -26,13 +27,18 @@ namespace Passenger.Infrastructure.Services
         public async Task<UserDto> GetAsync(string email)
         {
             var user = await _userRepository.GetAsync(email);
-            // Add more null checker
-            // Error handling API CORE 2.0
-;
+
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public async Task RegisterAsync(string email,string username, string password, string role)
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        {
+            var users = await _userRepository.GetAllAsync();
+            
+            return _mapper.Map<IEnumerable<User>,IEnumerable<UserDto>>(users);
+        }
+
+        public async Task RegisterAsync(Guid userid, string email,string username, string password, string role)
         {
             var user = await _userRepository.GetAsync(email);
             if (user != null)
@@ -42,7 +48,7 @@ namespace Passenger.Infrastructure.Services
 
             var salt = _encrypter.GetSalt();
             var hash = _encrypter.GetHash(password, salt);
-            user = new User(email, username, hash, salt, role);
+            user = new User(userid, email, username, hash, salt, role);
             await _userRepository.AddAsync(user);
         }
 

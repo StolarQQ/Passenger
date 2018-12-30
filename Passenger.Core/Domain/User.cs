@@ -8,7 +8,7 @@ namespace Passenger.Core.Domain
         // Check this regex
         private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
 
-        public Guid Id { get; protected set; }
+        public Guid UserId { get; protected set; }
         public string Email { get; protected set; }
         public string Username { get; protected set; }
         public string FullName { get; protected set; }
@@ -23,9 +23,9 @@ namespace Passenger.Core.Domain
             
         }
 
-        public User(string email, string username, string password, string salt, string role)
+        public User(Guid userid, string email, string username, string password, string salt, string role)
         {
-            Id = Guid.NewGuid();
+            UserId = userid;
             SetEmail(email);
             SetUsername(username);
             SetPassword(password);
@@ -95,28 +95,6 @@ namespace Passenger.Core.Domain
             Password = password;
             UpdatedAt = DateTime.UtcNow;
 
-        }
-
-        public void SetSalt(string salt)
-        {
-            if (string.IsNullOrWhiteSpace(salt))
-            {
-                throw new Exception("Salt it invalid");
-            }
-
-            if (salt.Length > 15)
-            {
-                throw new Exception("Salt can not contains more than 15 character");
-
-            }
-
-            if (Salt == salt)
-            {
-                return;
-            }
-
-            Salt = salt;
-            UpdatedAt = DateTime.UtcNow;
         }
     }
 }
