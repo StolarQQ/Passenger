@@ -12,7 +12,7 @@ namespace Passenger.Core.Domain
 
         protected Vehicle()
         {
-            
+
         }
 
         protected Vehicle(string brand, string name, int seats)
@@ -67,7 +67,7 @@ namespace Passenger.Core.Domain
             Seats = seats;
         }
 
-        //public static Vehicle Create(string brand, string name, int seats)
-        //    => new Vehicle(brand, name, seats);
+        public static Vehicle Create(string brand, string name, int seats)
+        => new Vehicle(brand, name, seats);
     }
 }

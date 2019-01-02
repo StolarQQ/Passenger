@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
-using Passenger.Infrastructure.DTO;
 using Passenger.Infrastructure.Services;
-using Passenger.Infrastructure.Settings;
 
 namespace Passenger.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class UsersController : ApiControllerBase
+    public class UserController : ApiControllerBase
     {
         private readonly IUserService _userService;
         //private readonly ICommandDispatcher _commandDispatcher;
 
-        public UsersController(IUserService userService,
+        public UserController(IUserService userService,
             ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
@@ -41,10 +34,10 @@ namespace Passenger.Api.Controllers
             return new JsonResult(user);
         }
 
-        [HttpGet("{all}")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("")]
+        public async Task<IActionResult> Get()
         {
-            var users = await _userService.GetAllAsync();
+            var users = await _userService.BrowseAsync();
             if (users == null)
             {
                 return NotFound();
@@ -62,12 +55,11 @@ namespace Passenger.Api.Controllers
 
             return Created($"users/{command.Email}", new { command.Email }); // TODO Created how work
         }
-
-
-        [HttpGet("")]
-        public async Task Test()
-        {
-            await Task.CompletedTask;
-        }
+        
+        //[HttpGet("")]
+        //public async Task Test()
+        //{
+        //    await Task.CompletedTask;
+        //}
     }
 }

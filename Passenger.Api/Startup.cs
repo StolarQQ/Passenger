@@ -9,13 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Passenger.Core.Domain;
-using Passenger.Core.Repositories;
 using Passenger.Infrastructure.Extenstions;
 using Passenger.Infrastructure.IoC;
-using Passenger.Infrastructure.IoC.Modules;
-using Passenger.Infrastructure.Mapper;
-using Passenger.Infrastructure.Repositories;
 using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Settings;
 
@@ -40,9 +35,7 @@ namespace Passenger.Api
             // Cache
             services.AddMemoryCache();
             
-
-            // TODO Test AppSettings Core 2.2
-          
+            
 
             // Jwt Implementation
             var jwtSettings = Configuration.GetSettings<JwtSettings>();
@@ -100,8 +93,7 @@ namespace Passenger.Api
                 var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
                 dataInitializer.SeedAsync();
             }
-
-
+            
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();

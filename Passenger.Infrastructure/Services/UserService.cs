@@ -31,7 +31,7 @@ namespace Passenger.Infrastructure.Services
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        public async Task<IEnumerable<UserDto>> BrowseAsync()
         {
             var users = await _userRepository.GetAllAsync();
             
@@ -47,6 +47,8 @@ namespace Passenger.Infrastructure.Services
             }
 
             var salt = _encrypter.GetSalt();
+            //var salt = BCrypt.Net.BCrypt.GenerateSalt();
+           
             var hash = _encrypter.GetHash(password, salt);
             user = new User(userid, email, username, hash, salt, role);
             await _userRepository.AddAsync(user);
