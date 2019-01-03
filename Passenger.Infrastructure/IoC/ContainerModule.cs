@@ -24,7 +24,6 @@ namespace Passenger.Infrastructure.IoC
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<CommandModule>();
             builder.RegisterModule(new SettingsModule(_configuration));
-            
         }
     }
 }

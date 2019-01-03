@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Passenger.Infrastructure.Extenstions;
 using Passenger.Infrastructure.IoC;
 using Passenger.Infrastructure.Services;
@@ -29,12 +30,11 @@ namespace Passenger.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions( x=> x.SerializerSettings.Formatting = Formatting.Indented);
 
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             // Cache
             services.AddMemoryCache();
-            
             
 
             // Jwt Implementation

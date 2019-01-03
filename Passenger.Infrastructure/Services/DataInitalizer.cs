@@ -30,7 +30,7 @@ namespace Passenger.Infrastructure.Services
                 tasks.Add(_userService.RegisterAsync(userid, $"{username}@gmail.com", username, "secret", "user"));
                 _logger.LogDebug($"Created a new user '{username}' ");
                 tasks.Add(_driverService.CreateAsync(userid));
-                tasks.Add(_driverService.SetVehicleAsync(userid, "BMW", "i8", 5));
+                tasks.Add(_driverService.SetVehicleAsync(userid, "BMW", "i8"));
             }
 
             for (int i = 0; i < 3; i++)

@@ -47,7 +47,7 @@ namespace Passenger.Core.Domain
             }
             Name = name;
         }
-        // Regex for numeric value
+      
         private void SetSeats(int seats)
         {
             if (seats < 0)

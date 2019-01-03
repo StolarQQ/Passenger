@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Passenger.Core.Domain
@@ -26,10 +27,21 @@ namespace Passenger.Core.Domain
         //
         }
 
-        public void SetVehicle(string brand, string name, int seats)
+        public void SetVehicle(Vehicle vehicle)
         {
-            Vehicle = Vehicle.Create(brand, name, seats);
+            Vehicle = vehicle;
             UpdatedAt = DateTime.UtcNow;
         }
+
+        //public void AddRoute(string name, Node start, Node end, double length)
+        //{
+        //    var route = Routes.SingleOrDefault(x => x.Name == name);
+        //    if (route != null)
+        //    {
+        //        throw new Exception($"Route with name: '{name}' already exists for driver: {Name}.");
+        //    }
+        //    _routes.Add(Route.Create(name, start, end, length));
+        //    UpdatedAt = DateTime.UtcNow;
+        //}
     }
 }
