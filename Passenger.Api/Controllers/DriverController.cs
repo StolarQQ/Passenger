@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
@@ -25,13 +26,25 @@ namespace Passenger.Api.Controllers
 
             return new JsonResult(drivers);
         }
-        
+
+        [HttpGet("{userid}")]
+        public async Task<IActionResult> Get(Guid userid)
+        {
+            var driver = await _driverService.GetAsync(userid);
+            if (driver == null)
+            {
+                return NotFound();
+            }
+
+            return new JsonResult(driver);
+        }
+
         // TODO
         [HttpPost]
         public async Task<IActionResult> Put([FromBody] ChangeUserPassword command)
         {
             //await _userService.RegisterAsync(request.Email, request.Username, request.Password);
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
             return NoContent();
         }

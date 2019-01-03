@@ -26,7 +26,7 @@ namespace Passenger.Api.Controllers
         {
             // TokenId == "Key"
             command.Tokenid = Guid.NewGuid();
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
             var jwt = _cache.GetJwt(command.Tokenid);
 
             return Json(jwt);

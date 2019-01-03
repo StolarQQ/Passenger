@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Passenger.Infrastructure.DTO
 {
@@ -6,8 +7,7 @@ namespace Passenger.Infrastructure.DTO
     {
         public Guid UserId { get; set; }
         public string Name { get; set; }
-        public DateTime UpdatedAt { get; set; }
         public VehicleDto Vehicle { get; set; }
-
+        public DateTime UpdatedAt { get; set; }
     }
 }

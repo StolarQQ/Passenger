@@ -12,6 +12,10 @@ namespace Passenger.Infrastructure.Mapper
                 {
                     cfg.CreateMap<User, UserDto>();
                     cfg.CreateMap<Driver, DriverDto>();
+                    cfg.CreateMap<Driver, DriverDetailsDto>();
+                    cfg.CreateMap<Route, RouteDto>();
+                    cfg.CreateMap<Node, NodeDto>();
+                    cfg.CreateMap<Vehicle, VehicleDto>();
                 })
                 .CreateMapper(); // Create Interface with our configuration
         

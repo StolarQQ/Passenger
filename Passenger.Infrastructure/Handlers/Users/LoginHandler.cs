@@ -25,7 +25,7 @@ namespace Passenger.Infrastructure.Handlers.Users
         {
             await _userService.LoginAsync(command.Email, command.Password);
             var user = await _userService.GetAsync(command.Email);
-            var jwt = _jwtHandler.CreateToken(command.Email, user.Role);
+            var jwt = _jwtHandler.CreateToken(user.UserId, user.Role);
             _cache.SetJwt(command.Tokenid, jwt);
         }
     }

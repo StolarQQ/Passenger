@@ -38,7 +38,7 @@ namespace Passenger.Infrastructure.Services
             return _mapper.Map<IEnumerable<User>,IEnumerable<UserDto>>(users);
         }
 
-        public async Task RegisterAsync(Guid userid, string email,string username, string password, string role)
+        public async Task RegisterAsync(Guid userid, string email, string username, string password, string role)
         {
             var user = await _userRepository.GetAsync(email);
             if (user != null)

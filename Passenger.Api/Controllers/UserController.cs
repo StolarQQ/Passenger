@@ -51,15 +51,9 @@ namespace Passenger.Api.Controllers
         public async Task<IActionResult> Post([FromBody]CreateUser command)
         {
             //await _userService.RegisterAsync(request.Email, request.Username, request.Password);
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
-            return Created($"users/{command.Email}", new { command.Email }); // TODO Created how work
+            return Created($"users/{command.Email}", null); // TODO Created how work
         }
-        
-        //[HttpGet("")]
-        //public async Task Test()
-        //{
-        //    await Task.CompletedTask;
-        //}
     }
 }

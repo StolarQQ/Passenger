@@ -59,13 +59,8 @@ namespace Passenger.Infrastructure.Services
             
             if (vehicles == null) // !vehicles.Any()
             {
-                Console.WriteLine("Getting vehicles from db ");
                 vehicles = await GetAllAsync();
                 _cache.Set(CacheKey, vehicles);
-            }
-            else
-            {
-                Console.WriteLine("Getting vehicles from cache ");
             }
 
             return vehicles;
@@ -99,7 +94,6 @@ namespace Passenger.Infrastructure.Services
                     Brand = v.Key,
                     Name = c.Name,
                     Seats = c.Seats
-
                 }))));
         
         private class VehicleDetails
