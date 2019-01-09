@@ -11,7 +11,6 @@ namespace Passenger.Core.Domain
 
         public Guid UserId { get; protected set; }
         public string Name { get; protected set; }
-        public double Distance { get; set; }
         public Vehicle Vehicle { get; protected set; }
         public IEnumerable<Route> Routes => _routes;
         public IEnumerable<DailyRoute> DailyRoutes => _dailyRoutes;
@@ -47,8 +46,8 @@ namespace Passenger.Core.Domain
             {
                 throw new Exception($"Route with name '{name}' can not have negative distance");
             }
-            _routes.Add(Route.Create(name, start, end));
-            Distance = distance;
+            _routes.Add(Route.Create(name, start, end, distance));
+            
             UpdatedAt = DateTime.UtcNow;
         }
 

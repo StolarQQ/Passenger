@@ -7,6 +7,8 @@ namespace Passenger.Core.Domain
         public string Name { get; protected set; }
         public Node Start { get; protected set; }
         public Node End { get; protected set; }
+        public double Distance { get; set; }
+
 
         // Ctor for serialization
         protected Route()
@@ -14,15 +16,16 @@ namespace Passenger.Core.Domain
             
         }
 
-        public Route(string name, Node start, Node end)
+        public Route(string name, Node start, Node end, double distance)
         {
             Name = name;
             Start = start;
             End = end;
+            Distance = distance;
         }
 
-        public static Route Create(string name, Node start, Node end)
-            => new Route(name, start, end);
+        public static Route Create(string name, Node start, Node end, double distance)
+            => new Route(name, start, end, distance);
     }
 
 }
