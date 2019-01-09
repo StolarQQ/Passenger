@@ -11,6 +11,7 @@ namespace Passenger.Core.Domain
 
         public Guid UserId { get; protected set; }
         public string Name { get; protected set; }
+        public double Distance { get; set; }
         public Vehicle Vehicle { get; protected set; }
         public IEnumerable<Route> Routes => _routes;
         public IEnumerable<DailyRoute> DailyRoutes => _dailyRoutes;
@@ -34,14 +35,20 @@ namespace Passenger.Core.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddRoute(string name, Node start, Node end)
+        public void AddRoute(string name, Node start, Node end, double distance)
         {
             var route = Routes.SingleOrDefault(x => x.Name == name);
             if (route != null)
             {
                 throw new Exception($"Route with name: '{name}' already exists for driver: {Name}.");
             }
+
+            if (distance < 0)
+            {
+                throw new Exception($"Route with name '{name}' can not have negative distance");
+            }
             _routes.Add(Route.Create(name, start, end));
+            Distance = distance;
             UpdatedAt = DateTime.UtcNow;
         }
 

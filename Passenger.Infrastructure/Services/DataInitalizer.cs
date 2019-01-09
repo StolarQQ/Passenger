@@ -30,22 +30,21 @@ namespace Passenger.Infrastructure.Services
             {
                 var rnd = new Random();
 
-                var userid = Guid.NewGuid();
+                var userId = Guid.NewGuid();
                 var username = $"user{i}";
-                tasks.Add(_userService.RegisterAsync(userid, $"{username}@gmail.com", username, "secret", "user"));
+                tasks.Add(_userService.RegisterAsync(userId, $"{username}@gmail.com", username, "secret", "user"));
                 _logger.LogDebug($"Created a new user '{username}' ");
-                tasks.Add(_driverService.CreateAsync(userid));
-                tasks.Add(_driverService.SetVehicleAsync(userid, "BMW", "i8"));
-                tasks.Add(_driverRouteService.AddAsync(userid, "default", rnd.Next(1,10), rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10)));
-                tasks.Add(_driverRouteService.AddAsync(userid, "job route", rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10)));
-
+                tasks.Add(_driverService.CreateAsync(userId));
+                tasks.Add(_driverService.SetVehicleAsync(userId, "BMW", "i8"));
+                tasks.Add(_driverRouteService.AddAsync(userId, "default", rnd.Next(1,10), rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10)));
+                tasks.Add(_driverRouteService.AddAsync(userId, "job route", rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10)));
             }
 
             for (int i = 0; i < 3; i++)
             {
-                var userid = Guid.NewGuid();
+                var userId = Guid.NewGuid();
                 var username = $"admin{i}";
-                tasks.Add(_userService.RegisterAsync(userid, $"{username}@gmail.com", username, "secret", "admin"));
+                tasks.Add(_userService.RegisterAsync(userId, $"{username}@gmail.com", username, "secret", "admin"));
             }
 
             await Task.WhenAll(tasks);

@@ -3,48 +3,45 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
+using Passenger.Infrastructure.Extenstions;
 
 namespace Passenger.Infrastructure.Services
 {
     public class DriverRouteService : IDriverRouteService
     {
         private readonly IDriverRepository _driverRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IRouteManger _routeManger;
 
         public DriverRouteService(IDriverRepository driverRepository,
-            IUserRepository userRepository, IMapper mapper)
+             IMapper mapper, IRouteManger routeManger)
         {
             _driverRepository = driverRepository;
-            _userRepository = userRepository;
             _mapper = mapper;
+            _routeManger = routeManger;
         }
 
         public async Task AddAsync(Guid userId, string name, double startLatitude, double startLongitude, double endLatitude,
             double endLongitude)
         {
-            var driver = await _driverRepository.GetAsync(userId);
-            if (driver == null)
-            {
-                throw new Exception($"Driver with user id '{userId}' was not found");
-            }
-
-            var start = Node.Create("StartAddress", startLatitude, startLongitude);
-            var end = Node.Create("EndAddress", startLongitude, endLongitude);
-            driver.AddRoute(name, start, end);
+            var driver = await _driverRepository.GetOrFailAsync(userId);
+            // Mimic sample google maps Address
+            var startAddress = await _routeManger.GetAddressAsync(startLatitude, startLongitude);
+            var endAddress = await _routeManger.GetAddressAsync(endLatitude, endLongitude);
+            // Start node for route
+            var startNode = Node.Create(startAddress, startLatitude, startLongitude);
+            var endNode = Node.Create(endAddress, startLongitude, endLongitude);
+            var distance = _routeManger.CalculateDistance(startLatitude, startLongitude, endLatitude, endLongitude);
+            driver.AddRoute(name, startNode, endNode, distance);
             await _driverRepository.UpdateAsync(driver);
         }
 
-        public async Task DeleteAsync(Guid userid, string name)
+        public async Task DeleteAsync(Guid userId, string name)
         {
-            var driver = await _driverRepository.GetAsync(userid);
-            if (driver == null)
-            {
-                throw new Exception($"Driver with user id '{userid}' was not found");
-            }
-
+            var driver = await _driverRepository.GetOrFailAsync(userId);
             driver.DeleteRoute(name);
             await _driverRepository.DeleteAsync(driver);
+
         }
     }
 }

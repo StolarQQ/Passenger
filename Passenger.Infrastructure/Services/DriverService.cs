@@ -5,6 +5,7 @@ using AutoMapper;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.DTO;
+using Passenger.Infrastructure.Extenstions;
 
 namespace Passenger.Infrastructure.Services
 {
@@ -42,34 +43,22 @@ namespace Passenger.Infrastructure.Services
         }
 
 
-        public async Task CreateAsync(Guid userid)
+        public async Task CreateAsync(Guid userId)
         {
-            var user = await _userRepository.GetAsync(userid);
-
-            if (user == null)
-            {
-                throw new Exception($"User with id '{userid}' not found");
-            }
-
-            var driver = await _driverRepository.GetAsync(userid);
+            var user = await _userRepository.GetOrFailAsync(userId);
+            var driver = await _driverRepository.GetAsync(userId);
             if (driver != null)
             {
-                throw new Exception($"Driver with id '{userid}' already exist");
+                throw new Exception($"Driver with id '{userId}' already exist");
             }
 
             driver = new Driver(user);
             await _driverRepository.AddAsync(driver);
-
         }
 
-        public async Task SetVehicleAsync(Guid userid, string brand, string name)
+        public async Task SetVehicleAsync(Guid userId, string brand, string name)
         {
-            var driver = await _driverRepository.GetAsync(userid);
-            if (driver == null)
-            {
-                throw new Exception($"Driver with id {userid} was not found");
-            }
-
+            var driver = await _driverRepository.GetOrFailAsync(userId);
             var vehicledetials = await _vehicleProvider.GetAsync(brand, name);
             var vehicle = Vehicle.Create(vehicledetials.Brand, vehicledetials.Name, vehicledetials.Seats);
             driver.SetVehicle(vehicle);

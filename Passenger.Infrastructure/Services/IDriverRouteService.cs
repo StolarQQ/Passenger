@@ -9,7 +9,6 @@ namespace Passenger.Infrastructure.Services
             double startLatitude, double startLongitude,
             double endLatitude, double endLongitude);
 
-        Task DeleteAsync(Guid userid, string name);
-
+        Task DeleteAsync(Guid userId, string name);
     }
 }
