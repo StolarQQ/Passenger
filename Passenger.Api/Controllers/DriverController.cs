@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Passenger.Infrastructure.Commands;
-using Passenger.Infrastructure.Commands.Users;
+using Passenger.Infrastructure.Commands.Drivers;
 using Passenger.Infrastructure.Services;
 
 namespace Passenger.Api.Controllers
@@ -39,12 +40,29 @@ namespace Passenger.Api.Controllers
             return new JsonResult(driver);
         }
 
-        // TODO
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Put([FromBody] ChangeUserPassword command)
+        public async Task<IActionResult> Post([FromBody] CreateDriver command)
         {
-            //await _userService.RegisterAsync(request.Email, request.Username, request.Password);
             await DispatchAsync(command);
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPut("me")]
+        public async Task<IActionResult> Put([FromBody] UpdateDriver command)
+        {
+            await DispatchAsync(command);
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpDelete("me")]
+        public async Task<IActionResult> Post()
+        {
+            await DispatchAsync(new DeleteDriver());
 
             return NoContent();
         }

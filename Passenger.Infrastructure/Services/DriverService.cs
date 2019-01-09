@@ -41,8 +41,7 @@ namespace Passenger.Infrastructure.Services
 
             return _mapper.Map<IEnumerable<Driver>, IEnumerable<DriverDto>>(drivers);
         }
-
-
+        
         public async Task CreateAsync(Guid userId)
         {
             var user = await _userRepository.GetOrFailAsync(userId);
@@ -62,6 +61,13 @@ namespace Passenger.Infrastructure.Services
             var vehicledetials = await _vehicleProvider.GetAsync(brand, name);
             var vehicle = Vehicle.Create(vehicledetials.Brand, vehicledetials.Name, vehicledetials.Seats);
             driver.SetVehicle(vehicle);
+        }
+
+        public async Task DeleteAsync(Guid userId)
+        {
+            var driver = await _driverRepository.GetOrFailAsync(userId);
+
+            await _driverRepository.DeleteAsync(driver);
         }
     }
 }

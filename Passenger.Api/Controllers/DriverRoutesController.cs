@@ -12,7 +12,6 @@ namespace Passenger.Api.Controllers
     [Route("drivers/routes")]
     public class DriverRoutesController : ApiControllerBase
     {
-        
         public DriverRoutesController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
         }
