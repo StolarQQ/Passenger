@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Passenger.Infrastructure.Commands;
@@ -27,8 +24,12 @@ namespace Passenger.Api.Controllers
 
         [Authorize]
         [HttpDelete("{name}")]
-        public async Task<IActionResult> Delete([FromBody]DeleteDriverRoute command)
+        public async Task<IActionResult> Delete(string name)
         {
+            var command = new DeleteDriverRoute
+            {
+                Name = name
+            };
             await DispatchAsync(command);
 
             return NoContent();
