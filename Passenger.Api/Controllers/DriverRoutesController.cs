@@ -16,16 +16,17 @@ namespace Passenger.Api.Controllers
         public DriverRoutesController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
         }
-
-        [HttpPost]
+        
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateDriverRoute command)
         {
-            await _commandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{name}")]
         public async Task<IActionResult> Delete([FromBody]DeleteDriverRoute command)
         {

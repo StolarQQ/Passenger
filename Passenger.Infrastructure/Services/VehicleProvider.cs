@@ -70,13 +70,13 @@ namespace Passenger.Infrastructure.Services
         {
             if (!avaliableVehicles.ContainsKey(brand))
             {
-                throw new Exception($"Vehicle brand : '{brand}' is no avaliable ");
+                throw new Exception($"Vehicle brand : '{brand}' is no available ");
             }
             var vehicles = avaliableVehicles[brand];
             var vehicle = vehicles.SingleOrDefault(x => x.Name == name);
             if (vehicle == null)
             {
-                throw new Exception($"Vehicles: '{name}' for brand '{brand}' is not aviable");
+                throw new Exception($"Vehicles: '{name}' for brand '{brand}' is not available");
             }
 
             return await Task.FromResult(new VehicleDto
@@ -94,6 +94,7 @@ namespace Passenger.Infrastructure.Services
                     Brand = v.Key,
                     Name = c.Name,
                     Seats = c.Seats
+
                 }))));
         
         private class VehicleDetails

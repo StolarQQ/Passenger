@@ -20,7 +20,6 @@ namespace Passenger.Infrastructure.Services
             _mapper = mapper;
         }
 
-
         public async Task AddAsync(Guid userId, string name, double startLatitude, double startLongitude, double endLatitude,
             double endLongitude)
         {
@@ -46,7 +45,6 @@ namespace Passenger.Infrastructure.Services
 
             driver.DeleteRoute(name);
             await _driverRepository.DeleteAsync(driver);
-
         }
     }
 }

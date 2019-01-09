@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Specialized;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
@@ -44,6 +45,14 @@ namespace Passenger.Api.Controllers
             }
 
             return new JsonResult(users);
+        }
+
+        [HttpGet("google")]
+        public async Task<IActionResult> GetGoogle()
+        {
+            // Redirect test
+            await _userService.BrowseAsync();
+            return new RedirectResult("http://www.google.pl");
         }
 
         // POST
