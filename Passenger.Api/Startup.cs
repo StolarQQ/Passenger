@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Passenger.Api.Framework;
 using Passenger.Infrastructure.Extenstions;
 using Passenger.Infrastructure.IoC;
 using Passenger.Infrastructure.Services;
@@ -93,7 +94,8 @@ namespace Passenger.Api
                 var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
                 dataInitializer.SeedAsync();
             }
-            
+
+            app.UseMyExceptionHandler();
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
