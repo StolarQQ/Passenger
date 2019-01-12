@@ -43,6 +43,7 @@ namespace Passenger.Api.Framework
                     break;
             }
 
+            // Sample response, we don't want to, send response like that to client 
             var response = new { code = errorCode, message = exception.Message };
             var payload = JsonConvert.SerializeObject(response);
             context.Response.ContentType = "application/json";
