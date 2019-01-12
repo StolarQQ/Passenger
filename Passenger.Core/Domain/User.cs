@@ -38,12 +38,12 @@ namespace Passenger.Core.Domain
         {
             if (!NameRegex.IsMatch(username))
             {
-                throw new Exception("Username is invalid.");
+                throw new DomainException(ErrorCodes.InvalidUsername, "Username is invalid.");
             }
 
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new Exception("Username is invalid");
+                throw new DomainException(ErrorCodes.InvalidUsername, "Username is invalid.");
             }
 
             if (Username == username)
@@ -59,7 +59,7 @@ namespace Passenger.Core.Domain
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new Exception("Email can not be empty.");
+                throw new DomainException(ErrorCodes.InvalidEmail, "Email can not be empty.");
             }
             if (Email == email)
             {
@@ -74,17 +74,17 @@ namespace Passenger.Core.Domain
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new Exception("Password can not be empty.");
+                throw new DomainException(ErrorCodes.InvalidPassword, "Password can not be empty.");
             }
 
             if (password.Length < 4)
             {
-                throw new Exception("Password must contain at least 4 characters.");
+                throw new DomainException(ErrorCodes.InvalidPassword, "Password must contain at least 4 characters.");
             }
 
             if (password.Length > 100)
             {
-                throw new Exception("Password can not contain more than 100 characters.");
+                throw new DomainException(ErrorCodes.InvalidPassword, "Password can not contain more than 100 characters.");
             }
 
             if (Password == password)

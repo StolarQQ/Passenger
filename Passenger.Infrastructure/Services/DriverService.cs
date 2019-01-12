@@ -5,7 +5,9 @@ using AutoMapper;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.DTO;
+using Passenger.Infrastructure.Exceptions;
 using Passenger.Infrastructure.Extenstions;
+using ErrorCodes = Passenger.Infrastructure.Exceptions.ErrorCodes;
 
 namespace Passenger.Infrastructure.Services
 {
@@ -36,7 +38,7 @@ namespace Passenger.Infrastructure.Services
             var drivers = await _driverRepository.BrowseAsync();
             if (drivers == null)
             {
-                throw new Exception("Drivers not exist");
+                throw new ServiceException(ErrorCodes.DriverNotFound, "Drivers not exist");
             }
 
             return _mapper.Map<IEnumerable<Driver>, IEnumerable<DriverDto>>(drivers);
@@ -48,7 +50,7 @@ namespace Passenger.Infrastructure.Services
             var driver = await _driverRepository.GetAsync(userId);
             if (driver != null)
             {
-                throw new Exception($"Driver with id '{userId}' already exist");
+                throw new ServiceException(ErrorCodes.DriverAlreadyExist, $"Driver with id '{userId}' already exist");
             }
 
             driver = new Driver(user);

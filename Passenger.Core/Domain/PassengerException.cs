@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Passenger.Core
+namespace Passenger.Core.Domain
 {
-    public class PassengerException : Exception
+    public abstract class PassengerException : Exception
     {
         public string Code { get; }
 
