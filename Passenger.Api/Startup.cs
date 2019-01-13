@@ -94,7 +94,7 @@ namespace Passenger.Api
                 var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
                 dataInitializer.SeedAsync();
             }
-
+            
             app.UseMyExceptionHandler();
             app.UseAuthentication();
             app.UseHttpsRedirection();

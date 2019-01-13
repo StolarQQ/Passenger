@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
 using Passenger.Infrastructure.Extenstions;
@@ -13,10 +14,12 @@ namespace Passenger.Api.Controllers
     public class LoginController : ApiControllerBase
     {
         private readonly IMemoryCache _cache;
+        private readonly ILogger<LoginController> _logger;
 
-        public LoginController(ICommandDispatcher commandDispatcher, IMemoryCache cache) : base(commandDispatcher)
+        public LoginController(ICommandDispatcher commandDispatcher, IMemoryCache cache, ILogger<LoginController> logger) : base(commandDispatcher)
         {
             _cache = cache;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -26,6 +29,7 @@ namespace Passenger.Api.Controllers
             command.Tokenid = Guid.NewGuid();
             await DispatchAsync(command);
             var jwt = _cache.GetJwt(command.Tokenid);
+            _logger.LogInformation($"User {command.Email} was logged into account");
 
             return Json(jwt);
         }
