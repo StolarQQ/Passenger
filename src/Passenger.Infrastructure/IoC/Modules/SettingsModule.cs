@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using Autofac;
+﻿using Autofac;
 using Microsoft.Extensions.Configuration;
-using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Extenstions;
+using Passenger.Infrastructure.Mongo;
 using Passenger.Infrastructure.Settings;
 
-namespace Passenger.Infrastructure.IoC.Modules 
+namespace Passenger.Infrastructure.IoC.Modules
 {
     public class SettingsModule : Autofac.Module
     {
@@ -24,6 +20,8 @@ namespace Passenger.Infrastructure.IoC.Modules
             builder.RegisterInstance(_configuration.GetSettings<GeneralSettings>())
                 .SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>())
+                .SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<MongoSettings>())
                 .SingleInstance();
         }
     }

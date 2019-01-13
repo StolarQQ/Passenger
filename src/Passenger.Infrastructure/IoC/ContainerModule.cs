@@ -1,8 +1,6 @@
 ﻿using Autofac;
-using AutoMapper.Configuration;
 using Passenger.Infrastructure.IoC.Modules;
 using Passenger.Infrastructure.Mapper;
-using Passenger.Infrastructure.Settings;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Passenger.Infrastructure.IoC
@@ -21,6 +19,7 @@ namespace Passenger.Infrastructure.IoC
             builder.RegisterInstance(AutoMapperConfig.Initialize())
                 .SingleInstance();
             builder.RegisterModule<RepositoryModule>();
+            builder.RegisterModule<MongoModule>();
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<CommandModule>();
             builder.RegisterModule(new SettingsModule(_configuration));

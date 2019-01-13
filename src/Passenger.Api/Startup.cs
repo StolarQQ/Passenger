@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Passenger.Api.Framework;
 using Passenger.Infrastructure.Extenstions;
 using Passenger.Infrastructure.IoC;
+using Passenger.Infrastructure.Mongo;
 using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Settings;
 
@@ -86,6 +87,8 @@ namespace Passenger.Api
                 app.UseHsts();
             }
 
+            MongoConfiguration.Initialize();
+            
             var generalSettings = app.ApplicationServices.GetService<GeneralSettings>();
 
             // Call dataInitializer 
