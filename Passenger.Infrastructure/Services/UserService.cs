@@ -59,7 +59,7 @@ namespace Passenger.Infrastructure.Services
             var user = await _userRepository.GetAsync(email);
             if (user == null)
             {
-                throw new ServiceException(ErrorCodes.InvalidCredentials,"Invalid credentials");
+                throw new ServiceException(ErrorCodes.InvalidCredentials, "Invalid credentials");
             }
 
             var hash = _encrypter.GetHash(password, user.Salt);

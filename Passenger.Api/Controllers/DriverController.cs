@@ -24,7 +24,7 @@ namespace Passenger.Api.Controllers
         public async Task<IActionResult> Get()
         {
             var drivers = await _driverService.BrowseAsync();
-
+            
             return new JsonResult(drivers);
         }
 
