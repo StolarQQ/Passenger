@@ -13,7 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Passenger.Tests", "Passenge
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{66F8B101-926C-4013-85C8-456126C93416}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Passenger.Tests.EndtoEnd", "Passenger.Tests.EndtoEnd\Passenger.Tests.EndtoEnd.csproj", "{0070A314-E90A-491A-98D1-52B14C0E2166}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Passenger.Tests.EndtoEnd", "Passenger.Tests.EndtoEnd\Passenger.Tests.EndtoEnd.csproj", "{0070A314-E90A-491A-98D1-52B14C0E2166}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{42D3F8DE-8336-4FDF-9443-CC7513EEED58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{B83EF4D1-E7E9-48EF-BA98-476B158E7429}"
+	ProjectSection(SolutionItems) = preProject
+		database.sql = database.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +53,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{9DFE048D-E9D5-477C-B68C-019FF5DB25AE} = {42D3F8DE-8336-4FDF-9443-CC7513EEED58}
+		{FAEE5C93-815D-4C29-B270-1EB2BA8928CD} = {42D3F8DE-8336-4FDF-9443-CC7513EEED58}
+		{B8ADD669-E2D2-4A6A-836D-6163F99AF465} = {42D3F8DE-8336-4FDF-9443-CC7513EEED58}
 		{7A9051B3-5EA8-4CB7-ACC2-376F69B33E49} = {66F8B101-926C-4013-85C8-456126C93416}
 		{0070A314-E90A-491A-98D1-52B14C0E2166} = {66F8B101-926C-4013-85C8-456126C93416}
 	EndGlobalSection
