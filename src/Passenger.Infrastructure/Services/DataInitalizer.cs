@@ -23,14 +23,14 @@ namespace Passenger.Infrastructure.Services
 
         public async Task SeedAsync()
         {
-            //var users = await _userService.BrowseAsync();
-            //if (users != null)
-            //{
-            //    return;
-            //}
+            var users = await _userService.BrowseAsync();
+            if (users != null)
+            {
+                return;
+            }
 
             _logger.LogDebug("Initializing data...");
-            //var await = new List<Task>();
+            //var awaited = new List<Task>();
             for (int i = 0; i < 10; i++)
             {
                 var rnd = new Random();
@@ -41,7 +41,7 @@ namespace Passenger.Infrastructure.Services
                 _logger.LogDebug($"Created a new user '{username}' ");
                 await _driverService.CreateAsync(userId);
                 await _driverService.SetVehicleAsync(userId, "BMW", "i8");
-                await _driverRouteService.AddAsync(userId, "default", rnd.Next(1,10), rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10));
+                await _driverRouteService.AddAsync(userId, "default", rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10));
                 await _driverRouteService.AddAsync(userId, "job route", rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10), rnd.Next(1, 10));
             }
 
@@ -53,7 +53,8 @@ namespace Passenger.Infrastructure.Services
             }
 
             // await Task.WhenAll(tasks);
-            _logger.LogDebug("Data was initialized");
+
+            
         }
     }
 }

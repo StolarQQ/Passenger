@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace Passenger.Core.Domain
 {// TODO: Check if methods could be private one,... more Regex constrains.
     public class User
-    {  
+    { 
         // Check this regex
         private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
 
@@ -57,10 +57,17 @@ namespace Passenger.Core.Domain
 
         public void SetEmail(string email)
         {
+            if (!Regex.IsMatch(email,
+                "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$"))
+            {
+                throw new DomainException(ErrorCodes.InvalidEmail, $"Email: {email} is not valid");
+            }
+
             if (string.IsNullOrWhiteSpace(email))
             {
                 throw new DomainException(ErrorCodes.InvalidEmail, "Email can not be empty.");
             }
+
             if (Email == email)
             {
                 return;
@@ -94,7 +101,6 @@ namespace Passenger.Core.Domain
 
             Password = password;
             UpdatedAt = DateTime.UtcNow;
-
         }
     }
 }

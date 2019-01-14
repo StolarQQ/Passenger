@@ -30,7 +30,7 @@ namespace Passenger.Infrastructure.Repositories
         public async Task AddAsync(User user)
             => await Users.InsertOneAsync(user);
 
-        // Partial update (update for single property)
+        // We can also make, partial update (update for single property)
         public async Task UpdateAsync(User user)
             => await Users.ReplaceOneAsync(x => x.UserId == user.UserId, user);
 

@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
 using MongoDB.Driver;
-using Passenger.Core.Repositories;
 using Passenger.Infrastructure.Mongo;
 using Passenger.Infrastructure.Repositories;
 
@@ -16,6 +15,7 @@ namespace Passenger.Infrastructure.IoC.Modules
                 var settings = c.Resolve<MongoSettings>();
 
                 return new MongoClient(settings.ConnectionString);
+
             }).SingleInstance();
 
             builder.Register((c, p) =>
