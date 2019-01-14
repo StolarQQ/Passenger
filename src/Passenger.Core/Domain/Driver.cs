@@ -28,10 +28,12 @@ namespace Passenger.Core.Domain
             Name = user.Username;
         }
 
-        public void SetVehicle(Vehicle vehicle)
+        public Driver SetVehicle(Vehicle vehicle)
         {
             Vehicle = vehicle;
             UpdatedAt = DateTime.UtcNow;
+
+            return this;
         }
 
         public void AddRoute(string name, Node start, Node end, double distance)

@@ -14,12 +14,12 @@ namespace Passenger.Core.Domain
         {
 
         }
-
-        protected Vehicle(string brand, string name, int seats)
+        
+        public Vehicle(string brand, string name, int seats )
         {
-            SetBrand(brand);
-            SetName(name);
-            SetSeats(seats);
+            Name = name;
+            Seats = seats;
+            Brand = brand;
         }
 
         private void SetBrand(string brand)

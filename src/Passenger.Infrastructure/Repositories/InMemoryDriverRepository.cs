@@ -7,7 +7,8 @@ using Passenger.Core.Repositories;
 
 namespace Passenger.Infrastructure.Repositories
 {
-    public class InMemoryDriverRepository : IDriverRepository
+    [Obsolete]
+    public class InMemoryDriverRepository //: IDriverRepository
     {
         private static readonly ISet<Driver> _drivers = new HashSet<Driver>();
 

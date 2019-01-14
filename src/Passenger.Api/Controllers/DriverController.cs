@@ -42,16 +42,16 @@ namespace Passenger.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateDriver command)
+        public async Task<IActionResult> Post([FromBody]CreateDriver command)
         {
             await DispatchAsync(command);
 
-            return NoContent();
+            return Created($"drivers/{command.UserId}", null);
         }
 
         [Authorize]
         [HttpPut("me")]
-        public async Task<IActionResult> Put([FromBody] UpdateDriver command)
+        public async Task<IActionResult> Put([FromBody]UpdateDriver command)
         {
             await DispatchAsync(command);
 

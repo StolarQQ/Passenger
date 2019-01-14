@@ -11,9 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Passenger.Api.Framework;
+using Passenger.Core.Repositories;
 using Passenger.Infrastructure.Extenstions;
 using Passenger.Infrastructure.IoC;
 using Passenger.Infrastructure.Mongo;
+using Passenger.Infrastructure.Repositories;
 using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Settings;
 
@@ -68,7 +70,7 @@ namespace Passenger.Api
 
             // Autofac container configuration
             var builder = new ContainerBuilder();
-            builder.Populate(services);            
+            builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
 

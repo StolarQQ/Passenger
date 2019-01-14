@@ -7,7 +7,8 @@ using Passenger.Core.Repositories;
 
 namespace Passenger.Infrastructure.Repositories
 {
-    public class InMemoryUserRepository : IUserRepository
+    [Obsolete]
+    public class InMemoryUserRepository //: IUserRepository
     {
         private static readonly ISet<User> _users = new HashSet<User>();
 

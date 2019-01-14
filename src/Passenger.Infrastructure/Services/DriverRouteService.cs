@@ -41,7 +41,6 @@ namespace Passenger.Infrastructure.Services
             var driver = await _driverRepository.GetOrFailAsync(userId);
             driver.DeleteRoute(name);
             await _driverRepository.DeleteAsync(driver);
-
         }
     }
 }

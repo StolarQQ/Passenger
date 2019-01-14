@@ -23,13 +23,13 @@ namespace Passenger.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Login command)
+        public async Task<IActionResult> Post([FromBody]Login command)
         {
             // TokenId == "Key"
             command.Tokenid = Guid.NewGuid();
             await DispatchAsync(command);
             var jwt = _cache.GetJwt(command.Tokenid);
-            _logger.LogInformation($"User {command.Email} was logged into account");
+            _logger.LogInformation($"User {command.Email} logged in");
 
             return Json(jwt);
         }
