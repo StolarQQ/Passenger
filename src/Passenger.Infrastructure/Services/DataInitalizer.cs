@@ -23,11 +23,11 @@ namespace Passenger.Infrastructure.Services
 
         public async Task SeedAsync()
         {
-            var users = await _userService.BrowseAsync();
-            if (users != null)
-            {
-                return;
-            }
+            //var users = await _userService.BrowseAsync();
+            //if (users != null)
+            //{
+            //    return;
+            //}
 
             _logger.LogDebug("Initializing data...");
             //var awaited = new List<Task>();

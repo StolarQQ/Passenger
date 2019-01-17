@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Passenger.Core.Domain
 {
     public class Driver
-    {
+    { 
+        // Added element for mapping in Mongodb 
+        [BsonElement]
         private ISet<Route> _routes = new HashSet<Route>();
+
         private ISet<DailyRoute> _dailyRoutes = new HashSet<DailyRoute>();
 
         public Guid UserId { get; protected set; }
