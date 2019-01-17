@@ -10,16 +10,15 @@ namespace Passenger.Core.Domain
         // Added element for mapping in Mongodb 
         [BsonElement]
         private ISet<Route> _routes = new HashSet<Route>();
-
         private ISet<DailyRoute> _dailyRoutes = new HashSet<DailyRoute>();
 
         public Guid UserId { get; protected set; }
         public string Name { get; protected set; }
         public Vehicle Vehicle { get; protected set; }
+        public DateTime UpdatedAt { get; protected set; }
+
         public IEnumerable<Route> Routes => _routes;
         public IEnumerable<DailyRoute> DailyRoutes => _dailyRoutes;
-
-        public DateTime UpdatedAt { get; protected set; }
 
         
         protected Driver()

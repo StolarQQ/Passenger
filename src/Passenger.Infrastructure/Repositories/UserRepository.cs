@@ -19,7 +19,6 @@ namespace Passenger.Infrastructure.Repositories
 
         public async Task<User> GetAsync(Guid id)
             => await _context.Users.SingleOrDefaultAsync(x => x.UserId == id);
-        
 
         public async Task<User> GetAsync(string email)
             => await _context.Users.SingleOrDefaultAsync(x => x.Email == email);

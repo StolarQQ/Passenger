@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Passenger.Core.Domain;
 
 namespace Passenger.Infrastructure.EF
@@ -13,19 +9,18 @@ namespace Passenger.Infrastructure.EF
 
         public DbSet<User> Users { get; set; }
 
-        public PassengerContext(DbContextOptions<PassengerContext> options, SqlSettings sqlSettings) 
+        public PassengerContext(DbContextOptions<PassengerContext> options, SqlSettings sqlSettings)
             : base(options)
         {
             _sqlSettings = sqlSettings;
         }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (_sqlSettings.InMemory)
             {
-                optionsBuilder.UseInMemoryDatabase();
-
+                optionsBuilder.UseInMemoryDatabase("Passenger");
+              
                 return;
             }
 

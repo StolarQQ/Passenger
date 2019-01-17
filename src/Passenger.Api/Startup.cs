@@ -33,7 +33,8 @@ namespace Passenger.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions( x=> x.SerializerSettings.Formatting = Formatting.Indented);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(x=> x.SerializerSettings.Formatting = Formatting.Indented);
 
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             // Cache
@@ -66,6 +67,7 @@ namespace Passenger.Api
                        };
                    });
 
+            // EF Configuration
             services.AddEntityFrameworkSqlServer()
                     .AddEntityFrameworkInMemoryDatabase()
                     .AddDbContext<PassengerContext>();
