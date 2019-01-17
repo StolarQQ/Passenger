@@ -8,11 +8,11 @@ using Passenger.Core.Repositories;
 
 namespace Passenger.Infrastructure.Repositories
 {
-    public class DriverRepository : IDriverRepository, IMongoRepository
+    public class DriverMongoRepository : IDriverRepository, IMongoRepository
     {
         private readonly IMongoDatabase _database;
 
-        public DriverRepository(IMongoDatabase database)
+        public DriverMongoRepository(IMongoDatabase database)
         {
             _database = database;
         }

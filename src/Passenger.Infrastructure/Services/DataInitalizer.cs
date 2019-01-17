@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
@@ -23,6 +22,7 @@ namespace Passenger.Infrastructure.Services
 
         public async Task SeedAsync()
         {
+            // Check if we got existing database
             //var users = await _userService.BrowseAsync();
             //if (users != null)
             //{
@@ -53,8 +53,6 @@ namespace Passenger.Infrastructure.Services
             }
 
             // await Task.WhenAll(tasks);
-
-            
         }
     }
 }

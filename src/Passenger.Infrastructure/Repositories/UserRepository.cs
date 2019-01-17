@@ -1,42 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
+using Microsoft.EntityFrameworkCore;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
+using Passenger.Infrastructure.EF;
 
 namespace Passenger.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository, IMongoRepository
+    public class UserRepository : IUserRepository, ISqlRepository
     {
-        private readonly IMongoDatabase _database;
+        private readonly PassengerContext _context;
 
-        public UserRepository(IMongoDatabase database)
+        public UserRepository(PassengerContext context)
         {
-            _database = database;
+            _context = context;
         }
 
         public async Task<User> GetAsync(Guid id)
-            => await Users.AsQueryable().FirstOrDefaultAsync(x => x.UserId == id);
+            => await _context.Users.SingleOrDefaultAsync(x => x.UserId == id);
+        
 
         public async Task<User> GetAsync(string email)
-            => await Users.AsQueryable().FirstOrDefaultAsync(x => x.Email == email);
-
+            => await _context.Users.SingleOrDefaultAsync(x => x.Email == email);
+        
+        // For real database we always use pagination, with take/skip
         public async Task<IEnumerable<User>> GetAllAsync()
-            => await Users.AsQueryable().ToListAsync();
-
+            => await _context.Users.ToListAsync();
+        
         public async Task AddAsync(User user)
-            => await Users.InsertOneAsync(user);
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+        }
 
-        // We can also make, partial update (update for single property)
         public async Task UpdateAsync(User user)
-            => await Users.ReplaceOneAsync(x => x.UserId == user.UserId, user);
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task RemoveAsync(Guid id)
-            => await Users.DeleteOneAsync(x => x.UserId == id);
-
-        private IMongoCollection<User> Users => _database.GetCollection<User>("Users");
+        {
+            var user = await GetAsync(id);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }
