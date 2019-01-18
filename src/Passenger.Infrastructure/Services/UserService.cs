@@ -6,7 +6,6 @@ using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.DTO;
 using Passenger.Infrastructure.Exceptions;
-using Passenger.Infrastructure.Extenstions;
 using ErrorCodes = Passenger.Infrastructure.Exceptions.ErrorCodes;
 
 namespace Passenger.Infrastructure.Services

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Passenger.Core.Domain;
 
 namespace Passenger.Infrastructure.EF
@@ -6,6 +7,7 @@ namespace Passenger.Infrastructure.EF
     public class PassengerContext : DbContext
     {
         private readonly SqlSettings _sqlSettings;
+        private readonly PassengerContext _passengerContext;
 
         public DbSet<User> Users { get; set; }
 
@@ -20,7 +22,7 @@ namespace Passenger.Infrastructure.EF
             if (_sqlSettings.InMemory)
             {
                 optionsBuilder.UseInMemoryDatabase("Passenger");
-              
+
                 return;
             }
 

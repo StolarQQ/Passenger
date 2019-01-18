@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Passenger.Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Passenger.Core.Domain;
 
 namespace Passenger.Core.Repositories
 {
