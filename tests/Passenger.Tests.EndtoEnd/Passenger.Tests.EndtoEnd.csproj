@@ -9,7 +9,6 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="FluentAssertions" Version="5.4.2" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
