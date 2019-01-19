@@ -1,9 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Autofac;
 using Passenger.Core.Repositories;
 
 namespace Passenger.Infrastructure.IoC.Modules
 {
+    [Obsolete]
     public class RepositoryModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)

@@ -21,7 +21,6 @@ namespace Passenger.Tests.Services
             var mapperMock = new Mock<IMapper>();
             var userId = Guid.NewGuid();
             
-            
             var userService = new UserService(userRepositoryMock.Object, encrypterMock.Object, mapperMock.Object);
             await userService.RegisterAsync(userId, "user@gmail.com", "andrew", "secret","user");
 

@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
@@ -62,7 +61,7 @@ namespace Passenger.Api.Controllers
             //await _userService.RegisterAsync(request.Email, request.Username, request.Password);
             await DispatchAsync(command);
 
-            return Created($"users/{command.Email}", null); // TODO Created how work
+            return Created("CreatedUser", $"User {command.Email} was created"); // TODO Created how work
         }
     }
 }
