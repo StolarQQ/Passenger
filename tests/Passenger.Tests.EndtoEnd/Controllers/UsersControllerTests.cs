@@ -1,17 +1,22 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Passenger.Api;
 using Passenger.Infrastructure.Commands.Users;
 using Passenger.Infrastructure.DTO;
 using Xunit;
-using Xunit.Sdk;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace Passenger.Tests.EndtoEnd.Controllers
 {
     public class UsersControllerTests : ControllerTestsBase
     {
+        public UsersControllerTests(WebApplicationFactory<Startup> fixture) : base(fixture)
+        {
+          
+        }
+        
         [Fact]
         public async Task given_invalid_email_user_should_not_exist()
         {
@@ -25,9 +30,9 @@ namespace Passenger.Tests.EndtoEnd.Controllers
         {
             var command = new CreateUser
             {
-                Email = "test@email.com",
-                Username = "test",
+                Email = "styblera@o2.pl",
                 Password = "secret",
+                Username = "testtest",
                 Role = "user"
             };
             var payload = GetPayload(command);
