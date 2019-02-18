@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Passenger.Core.Domain;
 
 namespace Passenger.Infrastructure.EF
@@ -7,8 +6,6 @@ namespace Passenger.Infrastructure.EF
     public class PassengerContext : DbContext
     {
         private readonly SqlSettings _sqlSettings;
-        private readonly PassengerContext _passengerContext;
-
         public DbSet<User> Users { get; set; }
 
         public PassengerContext(DbContextOptions<PassengerContext> options, SqlSettings sqlSettings)

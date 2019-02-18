@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -28,20 +29,30 @@ namespace Passenger.Tests.EndtoEnd.Controllers
         [Fact]
         public async Task given_unique_email_user_should_be_created()
         {
-            var command = new CreateUser
-            {
-                Email = "styblera@o2.pl",
-                Password = "secret",
-                Username = "testtest",
-                Role = "user"
-            };
+            var command = await CreateDummyUser();
             var payload = GetPayload(command);
             var response = await Client.PostAsync("user", payload);
+
             response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.Created);
-            response.Headers.Location.ToString().Should().BeEquivalentTo($"user/{command.Email}");
+            response.Headers.Location.ToString().Should().BeEquivalentTo("CreatedUser");
 
             var user = await GetUserAsync(command.Email);
             user.Email.Should().BeEquivalentTo(command.Email);
+        }
+
+        [Fact]
+        public async Task browse_all_user_should_be_not_null()
+        {
+            var command = await CreateDummyUser();
+            var payload = GetPayload(command);
+            await Client.PostAsync("user", payload);
+
+            var response = await Client.GetAsync("user");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            var test = JsonConvert.DeserializeObject<IEnumerable<UserDto>>(responseString);
+
+            test.Should().NotBeNullOrEmpty();
         }
 
         private async Task<UserDto> GetUserAsync(string email)
@@ -51,5 +62,18 @@ namespace Passenger.Tests.EndtoEnd.Controllers
 
             return JsonConvert.DeserializeObject<UserDto>(responseString);
         }
+
+        private async Task<CreateUser> CreateDummyUser()
+        {
+            var command = new CreateUser
+            {
+                Email = "styblera@o2.pl",
+                Password = "secret",
+                Username = "testtest",
+                Role = "user"
+            };
+
+            return command;
+        }  
     }
 }

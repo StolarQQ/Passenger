@@ -28,7 +28,7 @@ namespace Passenger.Infrastructure.Services
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()), 
+                new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
                 new Claim(ClaimTypes.Role, role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimeStamp().ToString(), ClaimValueTypes.Integer64),
@@ -37,7 +37,9 @@ namespace Passenger.Infrastructure.Services
             var expires = now.AddMinutes(_settings.ExipryMinutes);
             // var expires = now.AddMinutes((double.Parse(_configuration["Jwt:ExpiryMinutes"])));
 
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key)), SecurityAlgorithms.HmacSha256);
+            var signingCredentials =
+                new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key)),
+                    SecurityAlgorithms.HmacSha256);
             //var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"])), SecurityAlgorithms.HmacSha256);
 
             var jwt = new JwtSecurityToken(

@@ -32,7 +32,7 @@ namespace Passenger.Api.Controllers
         // TODO
         [HttpPut("")]
         [Route("password")]
-        public async Task<IActionResult> Put([FromBody] ChangeUserPassword command)
+        public async Task<IActionResult> Put([FromBody]ChangeUserPassword command)
         {
             await DispatchAsync(command);
 
